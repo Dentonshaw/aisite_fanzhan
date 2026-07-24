@@ -1,0 +1,13 @@
+直接复制 .htaccess 文件到网站根目录，就可以使用了。
+
+【宝塔面板设置教程】
+
+    1.登录宝塔面板 → 找到目标网站 → 点击「网站」→ 对应网站行的「设置」；
+    2.进入「伪静态」选项卡 → 选择「自定义」→ 将上述文件的配置代码粘贴到文本框；
+    3.（可选）若宝塔默认禁用.htaccess，需先开启：
+        进入「配置文件」（Apache 主配置）→ 找到<Directory "/www/wwwroot/你的网站目录">段；
+        将AllowOverride None改为AllowOverride All；
+        保存后重启 Apache 服务（宝塔「软件商店」→ Apache → 「重启」）；
+    4.点击「保存」，伪静态规则立即生效。
+    
+Apache 需确保开启mod_rewrite模块（宝塔「软件商店」→ Apache → 「设置」→ 「模块」→ 勾选rewrite）；

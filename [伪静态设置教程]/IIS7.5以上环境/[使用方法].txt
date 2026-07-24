@@ -1,0 +1,21 @@
+直接复制：web.config 到根目录即可（如果不报错，直接就OK了）
+
+如果报50X错误，先删除网站根目录：web.config 文件，然后在宝塔面板上找到【伪静态设置】，在设置中直接复制
+web.config 文件<rules>节点下的内容进去，保存即可。
+    <rules>
+        复制这里的内容到宝塔的伪静态设置中
+    </rules>
+    
+宝塔面板保存伪静态设置后，根目录会自动生成一个新的：web.config 文件，打开这个文件，将以下代码复制到
+<system.webServer>节点内（特别注意：如果节点内存在<security>这个节点，请直接覆盖）
+
+<security>
+    <requestFiltering allowDoubleEscaping="true">
+        <hiddenSegments>
+            <add segment="keys.seo" />
+            <add segment="gaopin.seo" />
+            <add segment="kill.txt" />
+            <add segment="city.txt" />
+        </hiddenSegments>
+    </requestFiltering>
+</security>

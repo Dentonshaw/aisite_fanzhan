@@ -16,23 +16,7 @@
 
 html, body {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
     position: relative;
-}
-
-.top-search-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 6rem;
-    background-color: rgba(255, 255, 255, 1);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.45);
 }
 
 .search-form {
@@ -40,6 +24,7 @@ html, body {
     align-items: center;
     width: 90%;
     max-width: 800px;
+    margin: 100px auto 10px;
     gap: 5px;
 }
 
@@ -77,6 +62,7 @@ html, body {
     padding: 10px 16px;
     cursor: pointer;
     text-align: center;
+    color: #000;
 }
 
 .dropdown-menu li:hover {
@@ -116,16 +102,6 @@ html, body {
     background-color: #338eef;
 }
 
-.main-object {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
 .loading {
     position: fixed;
     top: 50%;
@@ -143,37 +119,67 @@ html, body {
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 </style>
+<!-- 引入主站文件 -->
+<link rel="stylesheet" href="{mulu}static/css/style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-
-<div class="top-search-bar">
-    <form class="search-form" id="searchForm">
-        <div class="dropdown">
-            <button type="button" class="switch-btn" id="switchBtn">⇵切换引擎</button>
-            <ul class="dropdown-menu">
-                <li data-type="video" data-url="/post/{关键词}.html" data-btn="搜索影片">影视搜索</li>
-                <li data-type="web" data-url="/post/{关键词}.html?type=web" data-btn="搜索网页">网页搜索</li>
-                <li data-type="pic" data-url="/post/{关键词}.html?type=pic" data-btn="搜索图片">图片搜索</li>
-                <li data-type="shop" data-url="/post/{关键词}.html?type=shop" data-btn="搜索商品">商品搜索</li>
-            </ul>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1 class="logo-text">{sitename}</h1>
+                <p class="logo-tagline">{siteurl}</p>
+            </div>
+            
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="{mulu}#home" class="nav-link active">首页</a></li>
+                    <li><a href="{mulu}#about" class="nav-link">SEO是什么</a></li>
+                    <li><a href="{mulu}#advantages" class="nav-link">SEO的优势</a></li>
+                    <li><a href="{mulu}#future" class="nav-link">SEO的未来</a></li>
+                    <li><a href="{mulu}#cta" class="nav-link cta-button">立即开始</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
         </div>
-        <input type="text" class="search-input" id="searchInput" placeholder="请输入要搜索的内容" autocomplete="off">
-        <button type="submit" class="search-btn" id="searchBtn">搜索影片</button>
-    </form>
-</div>
+    </header>
 
+    <div class="mobile-menu">
+        <ul class="mobile-nav-list">
+            <li><a href="{mulu}#home" class="mobile-nav-link active">首页</a></li>
+            <li><a href="{mulu}#about" class="mobile-nav-link">SEO是什么</a></li>
+            <li><a href="{mulu}#advantages" class="mobile-nav-link">SEO的优势</a></li>
+            <li><a href="{mulu}#future" class="mobile-nav-link">SEO的未来</a></li>
+            <li><a href="{mulu}#cta" class="mobile-nav-link cta-mobile">立即开始</a></li>
+        </ul>
+    </div>
+    
+<!-- Search Begin -->
+<form class="search-form" id="searchForm">
+    <div class="dropdown">
+        <button type="button" class="switch-btn" id="switchBtn">⇵切换引擎</button>
+        <ul class="dropdown-menu">
+            <li data-type="video" data-url="{mulu}post/{关键词}.html" data-btn="搜索影片">影视搜索</li>
+            <li data-type="web" data-url="{mulu}post/{关键词}.html?type=web" data-btn="搜索网页">网页搜索</li>
+            <li data-type="pic" data-url="{mulu}post/{关键词}.html?type=pic" data-btn="搜索图片">图片搜索</li>
+            <li data-type="shop" data-url="{mulu}post/{关键词}.html?type=shop" data-btn="搜索商品">商品搜索</li>
+        </ul>
+    </div>
+    <input type="text" class="search-input" id="searchInput" placeholder="请输入要搜索的内容" autocomplete="off">
+    <button type="submit" class="search-btn" id="searchBtn">搜索影片</button>
+</form>
 <div class="loading" id="loading">
     <div class="loader"></div>
 </div>
-
-<object class="main-object" id="mainIframe" type="text/html" referrerPolicy="no-referrer"></object>
-
+<div style="display:block; width:100%; height:600px; margin:0px auto; overflow:hidden;">
+    <div style="width:100%; height:800px; margin:-150px 0px -50px; overflow:hidden;">
+        <object id="mainIframe" type="text/html" referrerPolicy="no-referrer" style="width:100%; height: 800px; margin:0px;"><p style="text-align: center;">内容加载失败，刷新重试！</p></object>
+    </div>
+</div>
 <script>
     const switchBtn = document.getElementById('switchBtn');
     const dropdown = document.querySelector('.dropdown');
@@ -184,7 +190,7 @@ html, body {
     const mainIframe = document.getElementById('mainIframe');
     const loading = document.getElementById('loading');
 
-    let currentSearchUrlTemplate = "/post/{关键词}.html";
+    let currentSearchUrlTemplate = "{mulu}post/{关键词}.html";
     
     function getUrlParam(name) {
         const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
@@ -199,13 +205,13 @@ html, body {
             case 'video':
                 return `https://so.appmiaoda.com/video?url={hostname}`;
             case 'pic':
-                return `https://so.appmiaoda.com/pic?query={hostname}`;
+                return `https://www.bing.com/images/search?view=detailV2&q={hostname}&FORM=IRPRST&selectedIndex=0&itb=0&mode=overlay`;
             case 'shop':
                 return `https://roldt.yhzu.cn/?r=/l&kw={hostname}`;
             case '':
             case 'web':
             default:
-                return `https://so.appmiaoda.com/search?query={hostname}`;
+                return `https://cn.bing.com/search?ensearch=1&q={hostname}`;
         }
     }
 
@@ -256,5 +262,65 @@ html, body {
         mainIframe.data = url;
     }
 </script>
+<!-- Search End -->
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3 class="logo-text"><span class="logo-gradient">{sitename}</span></h3>
+                    <p>{siteurl}</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>服务项目</h4>
+                        <ul>
+                            <li><a href="https://www.07yue.com" target="_blank">网站制作</a></li>
+                            <li><a href="https://www.urkeji.com" target="_blank">网站与优化</a></li>
+                            <li><a href="https://idc.urkeji.com" target="_blank">虚拟主机</a></li>
+                            <li><a href="https://t.ibangkf.com/i/reg/regframe.html?agent=urkeji" target="_blank" rel="nofollow">客服系统</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>技术资源</h4>
+                        <ul>
+                            <li><a href="https://so.appmiaoda.com" target="_blank">千度搜索</a></li>
+                            <li><a href="https://jz.appmiaoda.com" target="_blank">建站顾问</a></li>
+                            <li><a href="https://seo.appmiaoda.com" target="_blank">SEO技术</a></li>
+                            <li><a href="https://app-d95jueu2n18h.appmiaoda.com" target="_blank">图片压缩</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>联系我们</h4>
+                        <ul>
+                            <li><i class="fas fa-phone-alt"></i> 电话: 13931995587</li>
+                            <li><i class="fab fa-qq"></i> QQ: 853616368</li>
+                            <li><i class="fas fa-envelope"></i> 邮箱: admin@urkeji.com</li>
+                            <li><i class="fas fa-clock"></i> 时间: 9:00-20:00</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Copyright &copy; 2026 {sitename}(<a href="{mulu}" rel="index">{siteurl}</a>) 保留所有版权</p>
+                <p><a href="/">网站首页</a> <a href="{mulu}sitemap.xml">网站地图</a> <a href="{mulu}sitemap.txt">Sitemap</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="float-contact">
+        <a href="tel:13931995587" class="float-btn phone-btn" title="电话:13931995587">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="javascript:void(alert('加微信：seo5951 或QQ：853616368'))" target="_blank" class="float-btn qq-btn" title="QQ:853616368">
+            <i class="fab fa-qq"></i>
+        </a>
+        <a href="{mulu}#cta" class="float-btn consult-btn" title="业务选择">
+            <i class="fas fa-comment-alt"></i>
+        </a>
+    </div>
+    <script src="{mulu}static/js/script.js"></script>
 </body>
 </html>
